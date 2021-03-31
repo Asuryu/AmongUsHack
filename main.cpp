@@ -2,9 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <Windows.h>
-#include "proc.h"
-
-using namespace std;
+#include "proc.h";
 
 int main() {
 
