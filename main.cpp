@@ -4,8 +4,6 @@
 #include <Windows.h>
 #include "proc.h"
 
-using namespace std;
-
 int main() {
 
     DWORD procId = GetProcId(L"GameAssembly.dll"); //IMPORTANTE MUDAR
