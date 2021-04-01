@@ -1,6 +1,6 @@
-const { app, BrowserWindow, Tray, Menu, globalShortcut } = require('electron');
+const { app, BrowserWindow, Tray, Menu, globalShortcut, ipcMain } = require('electron');
 const path = require('path');
-const iconPath = path.join(__dirname, '/assets/tray_icon.png');
+const iconPath = path.join(__dirname, '/assets/logo.png');
 const fs = require('fs')
 
 let mainWindow;
@@ -12,11 +12,15 @@ function createWindow() {
 		height: 250,
 		transparent: true,
 		frame: false,
-		resizable: false,
+		resizable: true,
 		fullscreen: false,
 		fullscreenable: false,
+		type: "toolbar",
+		alwaysOnTop: true,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			contextIsolation: false,
+			enableRemoteModule: true
 		},
 		icon: __dirname + '/assets/logo.png'
 	});
@@ -25,9 +29,7 @@ function createWindow() {
 	// and load the index.html of the app.
 	mainWindow.loadFile('index.html');
 	mainWindow.webContents.audioMuted = true;
-    mainWindow.setAlwaysOnTop(true)
-
-	app.dock.setIcon(__dirname + '/assets/logo.png')
+    mainWindow.setAlwaysOnTop(true, "floating", 1)
 
 	// mainWindow.webContents.openDevTools();
 
@@ -42,6 +44,15 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function() {
+
+	setTimeout(function(){
+		mainWindow.blur()
+		console.log("POW")
+	}, 10000)
+
+	if(process.platform == "darwin"){
+		app.dock.setIcon(__dirname + '/assets/logo.png')
+	}
 
     const ret = globalShortcut.register("Esc", () => {
         app.quit()

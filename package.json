@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "jquery": "^3.6.0",
     "require": "^2.4.20"
   }
 }

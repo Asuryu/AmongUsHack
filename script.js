@@ -1,4 +1,7 @@
-const fs = require("node:fs")
+const fs = require("fs")
+const $ = require("jquery")
+const remote = require("electron").remote
+var win = remote.getCurrentWindow()
 
 window.onload = function() {
 
@@ -9,7 +12,15 @@ window.onload = function() {
     })
 
     $(".tp_btn").on("click", function(){
+        win.blur()
         console.log($(this).attr("id"))
+        fs.readFile('./data.json', 'utf8', (err, jsonString) => {
+            var json = JSON.parse(jsonString)
+            json.location = $(this).attr("id")
+            json.state = true
+            fs.writeFile('./data.json', JSON.stringify(json), () => {
 
+            })
+        })
     })
 }
