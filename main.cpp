@@ -6,35 +6,48 @@
 
 int main() {
 
-    DWORD procId = GetProcId(L"Among Us.exe"); //IMPORTANTE MUDAR
-    //std::cout << procId << std::endl;
+    DWORD procId = GetProcId(L"Among Us.exe");
 
-    uintptr_t moduleBase = GetModuleBaseAddress(procId, L"GameAssembly.dll"); //IMPORTANTE MUDAR
+    if(procId == 0)
+    {
+        std::cout << "Could not find Among Us.exe! Exiting..." << std::endl;
+        Sleep(1.5 * 1000);
+        return 0;
+    }
+
+    uintptr_t moduleBase = GetModuleBaseAddress(procId, L"GameAssembly.dll");
 
     HANDLE hProcess = 0;
     hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, procId);
-    //std::cout << hProcess << std::endl;
 
-    uintptr_t dynamicPtrBaseAddr = moduleBase + 0x02C6C310; //IMPORTANTE MUDAR
+    uintptr_t dynamicPtrBaseAddr = moduleBase + 0x02C6C310;
 
-    std::cout << "DynamicPtrBaseAddr = " << "0x" << std::hex << dynamicPtrBaseAddr << std::endl;
+    std::vector<unsigned int> addrOffsets = { 0x5c, 0x0, 0x60, 0x2c, 0x8, 0x5c, 0x30};
+    uintptr_t yPosAddr = FindDMAAddy(hProcess, dynamicPtrBaseAddr, addrOffsets);
+    uintptr_t xPosAddr = yPosAddr - 4;
 
-    std::vector<unsigned int> ammoOffsets = { 0x5c, 0x0, 0x60, 0x2c, 0x8, 0x5c, 0x30}; //IMPORTANTE MUDAR 
-    uintptr_t ammoAddr = FindDMAAddy(hProcess, dynamicPtrBaseAddr, ammoOffsets);
+    float xPosValue = 0.0f, yPosValue = 0.0f;
 
-    std::cout << "ammoAddr = " << "0x" << std::hex << ammoAddr << std::endl;
+    ReadProcessMemory(hProcess, (BYTE*)xPosAddr, &xPosValue, sizeof(xPosValue), nullptr);
+    ReadProcessMemory(hProcess, (BYTE*)yPosAddr, &yPosValue, sizeof(yPosValue), nullptr);
 
-    float ammoValue = 0.0;
+    float xMedBay = -9.157f, yMedBay = -4.309f;
+    float xUpperEngine = -16.837f, yUpperEngine = 2.415f;
+    float xReactor = -20.348f, yReactor = -5.288f;
+    float xSecurity = -13.371f, ySecurity = -4.901f;
+    float xLowerEngine = -15.158f, yLowerEngine = -11.839f;
+    float xElectrical = -7.667f, yElectrical = -8.463f;
+    float xStorage = -1.790f, yStorage = -15.586f;
+    float xCommunications = 3.846f, yCommunications = -15.574f;
+    float xShields = 9.309f, yShields = -12.609f;
+    float xNavigation = 16.579f, yNavigation = -4.589f;
+    float xOxygen = 6.459f, yOxygen = -3.470f;
+    float xWeapons = 8.726f, yWeapons = 1.609f;
+    float xCafeteria = -0.859f, yCafeteria = 2.368f;
+    float xAdmin = 5.344f, yAdmin = -7.453f;
 
-    /*ReadProcessMemory(hProcess, (BYTE*)ammoAddr, &ammoValue, sizeof(ammoValue), nullptr);
-    std::cout << "Current ammo = "  << ammoValue << std::endl;
-
-    float newAmmo = -17.0;
-    WriteProcessMemory(hProcess, (BYTE*)ammoAddr, &newAmmo, sizeof(newAmmo), nullptr);
-
-    ReadProcessMemory(hProcess, (BYTE*)ammoAddr, &ammoValue, sizeof(ammoValue), nullptr);
-    std::cout << "New ammo = " << ammoValue << std::endl;*/
-
+    WriteProcessMemory(hProcess, (BYTE*)xPosAddr, &xStorage, sizeof(xStorage), nullptr);
+    WriteProcessMemory(hProcess, (BYTE*)yPosAddr, &yStorage, sizeof(yStorage), nullptr);
 
     getchar();
     return 0;
