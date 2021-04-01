@@ -1,0 +1,27 @@
+{
+  "name": "amongushack",
+  "version": "1.0.0",
+  "description": "Among Us hack with tons os quirks that you probably shouldn't use but we did it anyways",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Asuryu/AmongUsHack.git"
+  },
+  "author": "Asuryu, AngoIa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Asuryu/AmongUsHack/issues"
+  },
+  "homepage": "https://github.com/Asuryu/AmongUsHack#readme",
+  "devDependencies": {
+    "electron": "^12.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "require": "^2.4.20"
+  }
+}
