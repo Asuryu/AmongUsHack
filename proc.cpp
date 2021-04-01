@@ -26,33 +26,33 @@ DWORD GetProcId(const wchar_t* procName)
     return procId;
 }
 
-uintptr_t GetModuleBaseAddress(DWORD procId, const wchart_t* modName)
+std::uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName)
 {
-    uintptr_t modBaseAddr = 0;
-    HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procId);
+    std::uintptr_t modBaseAddr = 0;
+    HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE| TH32CS_SNAPMODULE32, procId);
     if(hSnap != INVALID_HANDLE_VALUE)
     {
         MODULEENTRY32 modEntry;
-        modEntry.dwsize = sizeof(modEntry);
+        modEntry.dwSize = sizeof(modEntry);
         if(Module32First(hSnap, &modEntry))
         {
             do
             {
                 if(!_wcsicmp(modEntry.szModule, modName))
                 {
-                    modBaseAddr = (uintptr_t)modEntry.modBaseAddr;
+                    modBaseAddr = (std::uintptr_t)modEntry.modBaseAddr;
                     break;
                 }
-            }while(Module32Next(hsnap, &modEntry));
+            }while(Module32Next(hSnap, &modEntry));
         }
     }
-    CloseHandle(hsnap);
+    CloseHandle(hSnap);
     return modBaseAddr;
 }
 
-uintptr_t FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets)
+std::uintptr_t FindDMAAddy(HANDLE hProc, std::uintptr_t ptr, std::vector<unsigned int> offsets)
 {
-    uintptr_t addr = ptr;
+    std::uintptr_t addr = ptr;
     for(unsigned int i = 0; i < offsets.size(); ++i)
     {
         ReadProcessMemory(hProc, (BYTE*)addr, &addr, sizeof(addr), 0);
