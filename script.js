@@ -16,9 +16,9 @@ window.onload = function() {
         console.log($(this).attr("id"))
         fs.readFile('./data.json', 'utf8', (err, jsonString) => {
             var json = JSON.parse(jsonString)
-            json.location = $(this).attr("id")
+            json.location = parseInt($(this).attr("id"))
             json.state = true
-            fs.writeFile('./data.json', JSON.stringify(json), () => {
+            fs.writeFile('./data.json', JSON.stringify(json), "utf8", function(err)  {
 
             })
         })

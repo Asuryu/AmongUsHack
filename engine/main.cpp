@@ -3,10 +3,8 @@
 #include <vector>
 #include <Windows.h>
 #include "proc.h"
+//#include <json/value.h>
 #include <fstream>
-#include <sstream>
-#include "json.hpp"
-#include <string>
 
 void moveTo(float x, float y, HANDLE hProcess, uintptr_t xPosAddr, uintptr_t yPosAddr)
 {
@@ -74,46 +72,46 @@ void tpHack(DWORD procId)
             case 0:
                 return;
             case 1:
-                moveTo(-xMedBay, yMedBay, hProcess, xPosAddr, yPosAddr);
+                moveTo(xMedBay, yMedBay, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 2:    
-                moveTo(-xUpperEngine, yUpperEngine, hProcess, xPosAddr, yPosAddr);
+                moveTo(xUpperEngine, yUpperEngine, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 3:    
-                moveTo(-xReactor, yReactor, hProcess, xPosAddr, yPosAddr);
+                moveTo(xReactor, yReactor, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 4:    
-                moveTo(-xSecurity, ySecurity, hProcess, xPosAddr, yPosAddr);
+                moveTo(xSecurity, ySecurity, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 5:    
-                moveTo(-xLowerEngine, yLowerEngine, hProcess, xPosAddr, yPosAddr);
+                moveTo(xLowerEngine, yLowerEngine, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 6:    
-                moveTo(-xElectrical, yElectrical, hProcess, xPosAddr, yPosAddr);
+                moveTo(xElectrical, yElectrical, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 7:    
-                moveTo(-xStorage, yStorage, hProcess, xPosAddr, yPosAddr);
+                moveTo(xStorage, yStorage, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 8:    
-                moveTo(-xCommunications, yCommunications, hProcess, xPosAddr, yPosAddr);
+                moveTo(xCommunications, yCommunications, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 9:    
-                moveTo(-xShields, yShields, hProcess, xPosAddr, yPosAddr);
+                moveTo(xShields, yShields, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 10:   
-                moveTo(-xNavigation, yNavigation, hProcess, xPosAddr, yPosAddr);
+                moveTo(xNavigation, yNavigation, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 11:   
-                moveTo(-xOxygen, yOxygen, hProcess, xPosAddr, yPosAddr);
+                moveTo(xOxygen, yOxygen, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 12:   
-                moveTo(-xWeapons, yWeapons, hProcess, xPosAddr, yPosAddr);
+                moveTo(xWeapons, yWeapons, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 13:   
-                moveTo(-xCafeteria, yCafeteria, hProcess, xPosAddr, yPosAddr);
+                moveTo(xCafeteria, yCafeteria, hProcess, xPosAddr, yPosAddr);
                 break; 
             case 14:   
-                moveTo(-xAdmin, yAdmin, hProcess, xPosAddr, yPosAddr);
+                moveTo(xAdmin, yAdmin, hProcess, xPosAddr, yPosAddr);
                 break;
             default:
                 return;
