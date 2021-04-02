@@ -3,8 +3,12 @@
 #include <vector>
 #include <Windows.h>
 #include "proc.h"
-//#include <json/value.h>
+#include "json.hpp"
 #include <fstream>
+#include <sstream>
+#include <string>
+
+using json = nlohmann::json;
 
 void moveTo(float x, float y, HANDLE hProcess, uintptr_t xPosAddr, uintptr_t yPosAddr)
 {
@@ -45,8 +49,6 @@ void tpHack(DWORD procId)
                 xCafeteria = -0.859f, yCafeteria = 2.368f,
                 xAdmin = 5.344f, yAdmin = -7.453f;
 
-    int tpLocation;
-    
     std::cout << "Where to teleport?" << std::endl
               << "0 - Exit" << std::endl
               << "1 - Med Bay" << std::endl
@@ -66,8 +68,16 @@ void tpHack(DWORD procId)
 
     while(true)
     {
-        std::cin >> tpLocation;
-        switch (tpLocation)
+        std::string item_name;
+        std::ifstream nameFileout;
+        nameFileout.open("Debug\\data.json");
+        std::string s;
+        std::getline(nameFileout, s);
+
+        json j3 = json::parse(s);
+        std::cout << j3["location"] << std::endl;
+
+        switch ((int)j3["location"])
         {
             case 0:
                 return;
