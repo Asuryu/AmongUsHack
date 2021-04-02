@@ -3,6 +3,10 @@
 #include <vector>
 #include <Windows.h>
 #include "proc.h"
+#include <fstream>
+#include <sstream>
+#include "json.hpp"
+#include <string>
 
 void moveTo(float x, float y, HANDLE hProcess, uintptr_t xPosAddr, uintptr_t yPosAddr)
 {
