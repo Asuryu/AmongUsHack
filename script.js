@@ -5,6 +5,10 @@ var win = remote.getCurrentWindow()
 
 window.onload = function() {
 
+    $("body").on("click", function(){
+        win.blur()
+    })
+
     $("#slider").on("input change", function(){
         $("#opacity").html("Opacity: <span>" + parseFloat($(this).val()).toFixed(2) + "</span>")
         var color = "rgba(17, 17, 17, " + parseFloat($(this).val()).toFixed(2) + ")"
